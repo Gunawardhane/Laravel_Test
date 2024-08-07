@@ -7,22 +7,16 @@ use App\Models\Job;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AddServiceController extends Controller
+class CustomerController extends Controller
 {
-    public function index()
-    {
-        return view('cars.car-service');
-    }
-
-    public function search(Request $request)
-    {
+    public function search(Request $request){
         $search = $request->input('search');
         $customers = User::where('name', 'LIKE', "%{$search}%")
             ->orWhere('nic', 'LIKE', "%{$search}%")
             ->orWhere('email', 'LIKE', "%{$search}%")
             ->with('cars')
             ->get();
-            return view('cars.car-service', ['customers' => $customers]);
+        return view('search', compact('customers'));
     }
 
     public function initiateService($carId)

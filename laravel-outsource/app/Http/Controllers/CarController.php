@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Models\Job;
 
 class CarController extends Controller
 {
@@ -70,5 +71,32 @@ class CarController extends Controller
         $car->delete();
 
         return redirect()->route('car.manage')->with('success', 'Car deleted successfully!');
+    }
+
+//     public function initiateService(Request $request, $carId)
+// {
+//     $car = Car::find($carId);
+//     $jobs = $request->input('jobs');
+//     foreach ($jobs as $jobId) {
+//         $job = Job::find($jobId);
+//         $car->jobs()->attach($job, ['status' => 'pending']);
+//     }
+//     return redirect()->route('search.customers')->with('success', 'Service initiated successfully!');
+// }
+
+
+    public function initiateService(Request $request, $carId)
+    {
+        $car = Car::find($carId);
+        $jobs = $request->input('jobs');
+        if ($jobs) {
+            foreach ($jobs as $jobId) {
+                $job = Job::find($jobId);
+                if ($job) {
+                    $car->jobs()->attach($job, ['status' => 'pending']);
+                }
+            }
+        }
+        return redirect()->route('search.customers')->with('success', 'Service initiated successfully!');
     }
 }
