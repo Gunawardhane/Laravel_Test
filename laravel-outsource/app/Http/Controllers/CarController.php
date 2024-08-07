@@ -16,6 +16,7 @@ class CarController extends Controller
             'model' => 'required|string|max:255',
             'fuel_type' => 'required|string',
             'transmission' => 'required|string',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         Car::create($validatedData);
@@ -23,29 +24,23 @@ class CarController extends Controller
         return redirect()->route('car.manage')->with('success', 'Car registered successfully!');
     }
 
-    // public function manage(){
-    //     return view('cars.car-manage');
-    // }
-
     public function manage(Request $request) {
-        $cars = Car::all();
+        $registration_number = $request->input('registration_number');
+        $model = $request->input('model');
+        $customer_name = $request->input('customer_name');
 
-
-            $registration_number = $request->input('registration_number');
-            $model = $request->input('model');
-            $customer_name = $request->input('customer_name');
-
-            $cars = Car::query()
-                ->when($registration_number, function ($query, $registration_number) {
-                    return $query->where('registration_number', 'LIKE', "%{$registration_number}%");
-                })
-                ->when($model, function ($query, $model) {
-                    return $query->where('model', 'LIKE', "%{$model}%");
-                })
-                ->when($customer_name, function ($query, $customer_name) {
-                    return $query->where('customer_name', 'LIKE', "%{$customer_name}%");
-                })
-                ->paginate(10);
+        $cars = Car::query()
+            ->join('users', 'cars.user_id', '=', 'users.id')
+            ->when($registration_number, function ($query, $registration_number) {
+                return $query->where('registration_number', 'LIKE', "%{$registration_number}%");
+            })
+            ->when($model, function ($query, $model) {
+                return $query->where('model', 'LIKE', "%{$model}%");
+            })
+            ->when($customer_name, function ($query, $customer_name) {
+                return $query->where('users.name', 'LIKE', "%{$customer_name}%");
+            })
+            ->paginate(10);
 
         return view('cars.car-manage', compact('cars'));
     }
@@ -62,6 +57,7 @@ class CarController extends Controller
             'model' => 'required|string|max:255',
             'fuel_type' => 'required|string',
             'transmission' => 'required|string',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $car->update($validatedData);

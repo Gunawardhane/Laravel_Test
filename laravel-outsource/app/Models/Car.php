@@ -14,5 +14,10 @@ class Car extends Model
         'model',
         'fuel_type',
         'transmission',
+        'user_id',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
