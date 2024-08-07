@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddServiceController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\RegisterCars;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,6 @@ Route::get('/car-manage', [CarController::class, 'manage'])->name('car.manage');
 Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit');
 Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
 Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
+
+Route::get('/add-service', [AddServiceController::class, 'index'])->name('services.index');
+Route::get('/serch-in-service', [AddServiceController::class, 'search'])->name('services.search');

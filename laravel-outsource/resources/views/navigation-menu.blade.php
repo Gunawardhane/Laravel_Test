@@ -19,13 +19,19 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('car.register') }}" :active="request()->routeIs('car.register')">
-                        {{ __('Register Your Car') }}
+                        {{ __('Register Cars') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('car.manage') }}" :active="request()->routeIs('car.manage')">
-                        {{ __('Manage Your Car') }}
+                        {{ __('Manage Cars') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('services.index') }}" :active="request()->routeIs('services.index')">
+                        {{ __('Add Services to Cars') }}
                     </x-nav-link>
                 </div>
             </div>
