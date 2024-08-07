@@ -21,11 +21,6 @@ class Car extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-
-    // public function jobs(){
-    //     return $this->belongsToMany(Job::class)->withPivot('status');
-    // }
-
         public function jobs()
     {
         return $this->belongsToMany(Job::class, 'car_job');

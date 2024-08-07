@@ -73,18 +73,6 @@ class CarController extends Controller
         return redirect()->route('car.manage')->with('success', 'Car deleted successfully!');
     }
 
-//     public function initiateService(Request $request, $carId)
-// {
-//     $car = Car::find($carId);
-//     $jobs = $request->input('jobs');
-//     foreach ($jobs as $jobId) {
-//         $job = Job::find($jobId);
-//         $car->jobs()->attach($job, ['status' => 'pending']);
-//     }
-//     return redirect()->route('search.customers')->with('success', 'Service initiated successfully!');
-// }
-
-
     public function initiateService(Request $request, $carId)
     {
         $car = Car::find($carId);
