@@ -20,6 +20,12 @@ Route::middleware([
 
 Route::get('/car-register', [CarController::class, 'index'])->name('car.register');
 
-Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
+Route::post('/cars-save', [CarController::class, 'store'])->name('cars.store');
+
+// Route::get('/get-cars', [CarController::class, 'getCars'])->name('cars.get');
 
 Route::get('/car-manage', [CarController::class, 'manage'])->name('car.manage');
+
+Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit');
+Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
+Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
