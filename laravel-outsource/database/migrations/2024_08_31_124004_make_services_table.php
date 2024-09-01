@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cars', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('registration_number');
-            $table->string('model');
-            $table->string('fuel_type');
-            $table->string('transmission');
-            $table->foreignId('customer_id')->default(0)->constrained('customers');
+            $table->unsignedBigInteger('car_id');
+            $table->unsignedBigInteger('task_id');
+            $table->string('status');
             $table->timestamps();
+
+            $table->foreign('car_id')->references('id')->on('cars');
+            $table->foreign('task_id')->references('id')->on('tasks');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cars');
+        Schema::dropIfExists('services');
     }
 };
