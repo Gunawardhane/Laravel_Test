@@ -9,6 +9,7 @@ class ServiceJob extends Model
 {
     use HasFactory;
 
+
     protected $fillable = ['car_id', 'service_id', 'status'];
 
     public function car()
@@ -19,5 +20,17 @@ class ServiceJob extends Model
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
 
-}}
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
+    public function getPendingJobs()
+    {
+        return self::pending()->get();
+    }
+
+
+}

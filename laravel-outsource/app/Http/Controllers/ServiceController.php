@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Service;
+use App\Models\ServiceJob;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -62,21 +63,14 @@ public function addService(Request $request, Car $car)
         return redirect()->back()->withErrors($service->errors());
     }
 
+    $serviceJob = new ServiceJob();
+    $serviceJob->car_id = $request->input('car_id');
+    $serviceJob->service_id = $service->id; // Now the id is available
+    $serviceJob->status = 'pending';
+    $serviceJob->save();
+
     // If the service creation is successful, redirect to the desired page
     return redirect()->route('cars.index');
 }
-// public function addService(Request $request)
-// {
-//     $carId = $request->input('car_id');
-//     $taskId = $request->input('task_id');
 
-//     $service = new Service();
-//     $service->car_id = $carId;
-//     $service->task_id = $taskId;
-//     $service->status = 'pending';
-//     $service->save();
-
-//     // Redirect to the desired page
-//     return redirect()->route('cars.index');
-// }
 }

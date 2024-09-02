@@ -4,6 +4,7 @@ use App\Http\Controllers\AddServiceController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InitiateServiceController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisterCars;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
@@ -62,7 +63,9 @@ Route::get('cars/initiate-service/{car}', [ServiceController::class, 'initiateSe
 Route::post('cars/add-service/{car}', [ServiceController::class, 'addService'])->name('add-service');
 
 
-
+Route::get('/current-jobs', [JobController::class, 'getCurrentJobs'])->name('current-jobs');
+Route::post('/update-job-status/{car}', [JobController::class, 'updateJobStatus'])->name('update-job-status');
+Route::get('/view-job-detail/{car}', [JobController::class, 'viewJobDetail'])->name('view-job-detail');
 
 
 
