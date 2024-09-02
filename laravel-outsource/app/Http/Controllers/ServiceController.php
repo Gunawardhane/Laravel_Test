@@ -50,26 +50,23 @@ class ServiceController extends Controller {
 public function addService(Request $request, Car $car)
 {
     $carId = $request->input('car_id');
-    $taskId = $request->input('task_id');
+    $taskIds = $request->input('task_id');
 
-    $service = new Service();
-    $service->car_id = $carId;
-    $service->task_id = $taskId;
-    $service->status = 'pending';
+    foreach ($taskIds as $taskId) {
+        $service = new Service();
+        $service->car_id = $carId;
+        $service->task_id = $taskId; // Set the task_id column
+        $service->status = 'pending';
+        $service->save();
 
-    if (!$service->save()) {
-        Log::error("Service creation failed: " . $service->errors());
-        // Redirect back with errors
-        return redirect()->back()->withErrors($service->errors());
+        $serviceJob = new ServiceJob();
+        $serviceJob->car_id = $carId;
+        $serviceJob->service_id = $service->id;
+        $serviceJob->task_id = $taskId;
+        $serviceJob->status = 'pending';
+        $serviceJob->save();
     }
 
-    $serviceJob = new ServiceJob();
-    $serviceJob->car_id = $request->input('car_id');
-    $serviceJob->service_id = $service->id; // Now the id is available
-    $serviceJob->status = 'pending';
-    $serviceJob->save();
-
-    // If the service creation is successful, redirect to the desired page
     return redirect()->route('cars.index');
 }
 

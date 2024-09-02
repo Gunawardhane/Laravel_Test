@@ -13,18 +13,17 @@ class AddServiceController extends Controller
     {
         return view('cars.car-service');
     }
-
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $customers = User::where('name', 'LIKE', "%{$search}%")
-            ->orWhere('nic', 'LIKE', "%{$search}%")
-            ->orWhere('email', 'LIKE', "%{$search}%")
+        $searchBy = $request->input('search_by');
+
+        $customers = User::where($searchBy, 'LIKE', "%{$search}%")
             ->with('cars')
             ->get();
-            return view('cars.car-service', ['customers' => $customers]);
-    }
 
+        return view('cars.add-service', compact('customers'));
+    }
     public function initiateService($carId)
     {
         $car = Car::find($carId);

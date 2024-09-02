@@ -136,11 +136,14 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $car = Car::find($id);
-        $car->delete();
+// In App\Http\Controllers\CarController.php
 
-        return redirect()->route('cars.index')->with('success', 'Car deleted successfully!');
-    }
+public function destroy($id)
+{
+    $car = Car::find($id);
+    $car->serviceJobs()->delete(); // Delete related service jobs
+    $car->delete();
+
+    return redirect()->route('cars.index')->with('success', 'Car deleted successfully!');
+}
 }

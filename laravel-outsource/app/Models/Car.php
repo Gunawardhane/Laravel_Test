@@ -33,6 +33,11 @@ class Car extends Model
             return $this->belongsTo(Customer::class);
         }
 
+        public function serviceJobs()
+        {
+            return $this->hasMany(ServiceJob::class);
+        }
+
         // In Car.php model
        // In Car.php model
 public function getCompletedPercentageAttribute()

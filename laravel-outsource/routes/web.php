@@ -40,7 +40,8 @@ Route::post('/cars',[CarController::class, 'store'])->name('cars.store');
 Route::get('/cars/{id}', 'CarController@show')->name('cars.show');
 Route::get('/cars/{id}/edit', 'CarController@edit')->name('cars.edit');
 Route::patch('/cars/{id}', 'CarController@update')->name('cars.update');
-Route::delete('/cars/{id}', 'CarController@destroy')->name('cars.destroy');
+// Route::delete('/cars/{id}', 'CarController@destroy')->name('cars.destroy');
+Route::delete('/cars/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
 
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/cars', [CarController::class, 'index'])->name('cars.index');
