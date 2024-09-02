@@ -18,22 +18,37 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('customer.register') }}" :active="request()->routeIs('customer.register')">
+                        {{ __('Register Customers') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('car.register') }}" :active="request()->routeIs('car.register')">
                         {{ __('Register Cars') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('car.manage') }}" :active="request()->routeIs('car.manage')">
-                        {{ __('Manage Cars') }}
+                    <x-nav-link href="{{ route('servicePage') }}" :active="request()->routeIs('servicePage')">
+                        {{ __('Add Service for Car') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('services.index') }}" :active="request()->routeIs('services.index')">
-                        {{ __('Add Services to Cars') }}
+                    <x-nav-link href="{{ route('current-jobs') }}" :active="request()->routeIs('current-jobs')">
+                        {{ __('Manage Jobs') }}
                     </x-nav-link>
                 </div>
+
+
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('AddService') }}" :active="request()->routeIs('AddService')">
+                        {{ __('Initiate Service for Car') }}
+                    </x-nav-link>
+                </div> --}}
+
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
