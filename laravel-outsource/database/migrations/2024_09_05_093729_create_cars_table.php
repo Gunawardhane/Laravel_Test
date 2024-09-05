@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('fuel_type');
             $table->string('transmission');
             $table->foreignId('customer_id')->default(0)->constrained('customers');
+            $table->integer('completedPercentage')->default(0);
+            $table->datetime('estimatedFinishTime')->nullable();
             $table->timestamps();
         });
     }
